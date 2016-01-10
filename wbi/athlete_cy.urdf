@@ -1,0 +1,909 @@
+<robot name="ATHLETE_ROBOT_CY">
+  <link name="trunk">
+    <inertial>
+      <origin xyz="-0.0961522 0.204529 0.0399363" rpy="0 0 0"/>
+      <mass value="0.332145"/>
+      <inertia ixx="0.00851663" ixy="-0.00152785" ixz="6.63328e-05" iyy="0.00387154" iyz="0.0001264" izz="0.0107068"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/trunk_all_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/trunk_all_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="imu_frame"/>
+  <joint name="imu_frame_fixed_joint" type="fixed">
+    <origin xyz="-0.048 0.32 0.05" rpy="-1.57079632679 0 0"/>
+    <parent link="trunk"/>
+    <child link="imu_frame"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_hip_in_up">
+    <inertial>
+      <origin xyz="0.0241627 0 0.0183179" rpy="0 0 2.35619436201"/>
+      <mass value="0.00643815"/>
+      <inertia ixx="4.05418e-06" ixy="-1.84253e-06" ixz="-4.0103e-08" iyy="4.05418e-06" iyz="-4.01016e-08" izz="6.47614e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.0185" rpy="0 0 2.35619436201"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_hip_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="r_hip_in_up_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0185" rpy="0 0 2.35619436201"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_hip_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_hip_pitch" type="continuous">
+    <origin xyz="0 0 0.0985" rpy="3.14159265359 0 0"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <parent link="trunk"/>
+    <child link="r_hip_in_up"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_hip_ftsens">
+    <inertial>
+      <origin xyz="2.3187e-06 5.3e-05 0.001822" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_hip_ft" type="fixed">
+    <origin xyz="0.055 0 -0.0048" rpy="3.14159265359 0 1.57079632679"/>
+    <parent link="r_hip_in_up"/>
+    <child link="r_hip_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_hip_in_low">
+    <inertial>
+      <origin xyz="-0.0387251936189 -0.038725202074 -0.070954" rpy="0 0 0"/>
+      <mass value="0.0026393"/>
+      <inertia ixx="1.5938e-06" ixy="1.4244e-07" ixz="-9.25978e-09" iyy="1.5938e-06" iyz="-9.26002e-09" izz="5.98715e-07"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_hip_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="r_hip_in_low_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_hip_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_hip_fixed" type="fixed">
+    <origin xyz="0 -0.055 -0.0233" rpy="3.14159265359 0 -0.78539803522"/>
+    <parent link="r_hip_ftsens"/>
+    <child link="r_hip_in_low"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_thigh">
+    <inertial>
+      <origin xyz="-0.0200751 -0.150387064484 0.0145700258363" rpy="0 0 0"/>
+      <mass value="0.0527068"/>
+      <inertia ixx="0.000490655" ixy="-2.98609e-05" ixz="-1.9634e-05" iyy="8.18949e-05" iyz="3.52047e-06" izz="0.00047454"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.055 -0.300401303328 3.21302567774e-07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_thigh_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.055 -0.300401303328 3.21302567774e-07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_thigh_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_hip_roll" type="revolute">
+    <origin xyz="-0.0388908679803 -0.0388908779502 -0.085" rpy="-3.13564949759 0 -2.35619436201"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <parent link="r_hip_in_low"/>
+    <child link="r_thigh"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_shank">
+    <inertial>
+      <origin xyz="0.0168768147085 -0.152351669202 0.106698386682" rpy="0 0 0"/>
+      <mass value="0.0348498"/>
+      <inertia ixx="0.000347096" ixy="3.5249e-06" ixz="1.88168e-07" iyy="2.93664e-05" iyz="1.36816e-06" izz="0.000335591"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.300000278028 0.10639438318" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shank_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.300000278028 0.10639438318" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shank_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_knee_pitch" type="revolute">
+    <origin xyz="-0.055 -0.300401619774 -0.1063943558" rpy="0 0 0.0161856024944"/>
+    <axis xyz="-3.92680484754e-11 1.73135633434e-09 -0.9999996605"/>
+    <parent link="r_thigh"/>
+    <child link="r_shank"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_foot">
+    <inertial>
+      <origin xyz="-0.0079449294187 0.00691013935229 -0.10639394229" rpy="0 0 0"/>
+      <mass value="0.00435303"/>
+      <inertia ixx="2.52928e-06" ixy="5.4451e-07" ixz="0.0" iyy="1.95993e-06" iyz="0.0" izz="3.24897e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="-6.85237260045e-07 0 -0.106394383051" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_foot_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="r_foot_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.85237260045e-07 0 -0.106394383051" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_foot_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_ankle_pitch" type="revolute">
+    <origin xyz="0 -0.299999592722 0" rpy="-3.14159265357 0 1.57040159778"/>
+    <axis xyz="1.04380606155e-09 -2.33446539416e-11 0.9999996605"/>
+    <parent link="r_shank"/>
+    <child link="r_foot"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_foot_ftsens">
+    <inertial>
+      <origin xyz="2.32481401612e-06 5.31045350033e-05 0.00182154180397" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="1 1 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_foot_fixed" type="fixed">
+    <origin xyz="-0.0490003075938 0.0349999680622 -0.106394272916" rpy="1.57079613926 0.523598748838 1.57079650076"/>
+    <parent link="r_foot"/>
+    <child link="r_foot_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_sole">
+    <inertial>
+      <origin xyz="0.0126203294726 0.0218581296079 0.0149636800637" rpy="-1.57079617797 -2.87951586742e-07 1.04719715089"/>
+      <mass value="0.0073899"/>
+      <inertia ixx="2.88441e-06" ixy="6.63485e-07" ixz="0.0" iyy="4.13224e-05" iyz="0.0" izz="3.94285e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.0174993005972 -0.0303112601305 -0.032999355819" rpy="-1.57079617797 -2.87951586742e-07 1.04719715089"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_sole_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="pink">
+        <color rgba="1 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0174993005972 -0.0303112601305 -0.032999355819" rpy="-1.57079617797 -2.87951586742e-07 1.04719715089"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_sole_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_foot_ft" type="fixed">
+    <origin xyz="2.71888269635e-07 -4.44338473599e-07 -0.00479968023608" rpy="3.14159202888 -3.76364938312e-07 1.57079589977"/>
+    <parent link="r_foot_ftsens"/>
+    <child link="r_sole"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_hip_in_up">
+    <inertial>
+      <origin xyz="-0.01208138336 -0.0209254927636 0.018317885" rpy="3.14159265359 0 1.83259543899"/>
+      <mass value="0.00643815"/>
+      <inertia ixx="4.05418e-06" ixy="-1.84253e-06" ixz="4.0103e-08" iyy="4.05418e-06" iyz="4.01016e-08" izz="6.47614e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.0185" rpy="3.14159265359 0 1.83259543899"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_hip_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="l_hip_in_up_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0185" rpy="3.14159265359 0 1.83259543899"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_hip_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_hip_pitch" type="continuous">
+    <origin xyz="0 0 -0.0185" rpy="0 0 2.09439550618"/>
+    <axis xyz="0.0 0.0 -1.0"/>
+    <parent link="trunk"/>
+    <child link="l_hip_in_up"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_hip_ftsens">
+    <inertial>
+      <origin xyz="2.3158682748e-06 5.2988788805e-05 0.0018221" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="cyan">
+        <color rgba="0 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_hip_ft" type="fixed">
+    <origin xyz="-0.0275000192328 -0.0476313861041 -0.0048" rpy="3.14159265359 0 1.5707960312"/>
+    <parent link="l_hip_in_up"/>
+    <child link="l_hip_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_hip_in_low">
+    <inertial>
+      <origin xyz="-0.0387251935781 -0.0387252021148 0.0709537" rpy="0 0 0"/>
+      <mass value="0.0026393"/>
+      <inertia ixx="1.5938e-06" ixy="1.4244e-07" ixz="9.25979e-09" iyy="1.5938e-06" iyz="9.26001e-09" izz="5.98715e-07"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_hip_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="l_hip_in_low_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_hip_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_hip_fixed" type="fixed">
+    <origin xyz="0.0476313942328 0.0275000051534 -0.0233" rpy="0 0 -0.261799407783"/>
+    <parent link="l_hip_ftsens"/>
+    <child link="l_hip_in_low"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_thigh">
+    <inertial>
+      <origin xyz="-0.0200777 -0.150385682303 -0.0144973480882" rpy="0 0 0"/>
+      <mass value="0.0509332"/>
+      <inertia ixx="0.000488988" ixy="-2.98609e-05" ixz="1.88652e-05" iyy="7.96235e-05" iyz="-3.52041e-06" izz="0.000473744"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.055 -0.300401319746 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_thigh_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.055 -0.300401319746 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_thigh_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_hip_roll" type="revolute">
+    <origin xyz="-0.0388908679803 -0.0388908779502 0.085" rpy="3.10995608273 0 -2.35619436201"/>
+    <axis xyz="1.0 0.0 0.0"/>
+    <parent link="l_hip_in_low"/>
+    <child link="l_thigh"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_shank">
+    <inertial>
+      <origin xyz="0.0168768349886 -0.152351944998 -0.000303935588245" rpy="0 0 0"/>
+      <mass value="0.0348498"/>
+      <inertia ixx="0.000347096" ixy="3.5249e-06" ixz="-1.88168e-07" iyy="2.93664e-05" iyz="-1.36816e-06" izz="0.000335591"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.299999762078 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shank_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.299999762078 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shank_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_knee_pitch" type="revolute">
+    <origin xyz="-0.055 -0.300401319746 0" rpy="0 0 0.0253900281471"/>
+    <axis xyz="5.80587265764e-10 8.05744188037e-09 -1.00000039457"/>
+    <parent link="l_thigh"/>
+    <child link="l_shank"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_foot">
+    <inertial>
+      <origin xyz="-0.00794448904934 0.00691014584381 0.106394303502" rpy="0 0 0"/>
+      <mass value="0.00435303"/>
+      <inertia ixx="2.52928e-06" ixy="5.4451e-07" ixz="0.0" iyy="1.95993e-06" iyz="0.0" izz="3.24897e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="3.90509847792e-07 0 0.106394326795" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_foot_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="l_foot_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="3.90509847792e-07 0 0.106394326795" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_foot_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_ankle_pitch" type="revolute">
+    <origin xyz="0 -0.300000152546 0.106394304158" rpy="3.14159265179 0 1.57079659461"/>
+    <axis xyz="8.45148605266e-09 -1.21943323245e-09 1.00000039457"/>
+    <parent link="l_shank"/>
+    <child link="l_foot"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_foot_ftsens">
+    <inertial>
+      <origin xyz="2.2652182173e-06 5.30149621345e-05 0.00182219287744" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dblue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_foot_fixed" type="fixed">
+    <origin xyz="-0.0490000366171 0.0349999991544 0.106394267805" rpy="1.57079626088 0.523598703036 1.57079684654"/>
+    <parent link="l_foot"/>
+    <child link="l_foot_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_sole">
+    <inertial>
+      <origin xyz="0.0126200545363 0.0218583760072 0.0149637745091" rpy="-1.57079605181 -6.32584169769e-07 1.04719780211"/>
+      <mass value="0.0073899"/>
+      <inertia ixx="2.88441e-06" ixy="6.63485e-07" ixz="0.0" iyy="4.13224e-05" iyz="0.0" izz="3.94285e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.0174999599945 -0.0303108228434 -0.0330002757642" rpy="-1.57079605181 -6.32584169769e-07 1.04719780211"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_sole_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dgreen">
+        <color rgba="0.1 0.8 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0174999599945 -0.0303108228434 -0.0330002757642" rpy="-1.57079605181 -6.32584169769e-07 1.04719780211"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_sole_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_foot_ft" type="fixed">
+    <origin xyz="0 0 -0.00479994734101" rpy="3.14159175028 -2.70369520567e-07 1.57079650695"/>
+    <parent link="l_foot_ftsens"/>
+    <child link="l_sole"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_shoulder_lateral">
+    <inertial>
+      <origin xyz="0.0400974 0.058849 -0.029445" rpy="0 0 0"/>
+      <mass value="0.0241779"/>
+      <inertia ixx="0.00011666" ixy="-8.61211e-06" ixz="-5.63375e-06" iyy="0.000102116" iyz="-2.04937e-05" izz="4.70351e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.099118" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_lateral_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.099118" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_lateral_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_shoulder_pitch" type="revolute">
+    <origin xyz="0 0.5 0.173118" rpy="0 0 0"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <parent link="trunk"/>
+    <child link="r_shoulder_lateral"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_shoulder_in_up">
+    <inertial>
+      <origin xyz="-0.0164054409061 -0.0164054451118 0.14311" rpy="0 0 0"/>
+      <mass value="0.00533858"/>
+      <inertia ixx="3.56358e-06" ixy="-1.6399e-06" ixz="2.90551e-07" iyy="3.56357e-06" iyz="2.90544e-07" izz="4.83593e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.141027" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="r_shoulder_in_up_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.141027" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_shoulder_yaw" type="revolute">
+    <origin xyz="0 -0.069027 0.016882" rpy="-1.57079632679 -0.785398291575 0"/>
+    <axis xyz="-5.55111512313e-17 8.32667268469e-17 -1.0"/>
+    <parent link="r_shoulder_lateral"/>
+    <child link="r_shoulder_in_up"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_shoulder_ftsens">
+    <inertial>
+      <origin xyz="2e-06 5.3e-05 0.001822" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_shoulder_ft" type="fixed">
+    <origin xyz="-0.0388908679803 -0.0388908779502 0.126727" rpy="3.14159265359 0 -0.78539803522"/>
+    <parent link="r_shoulder_in_up"/>
+    <child link="r_shoulder_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_shoulder_in_low">
+    <inertial>
+      <origin xyz="-0.0388216422353 -0.0388216521875 -0.061047" rpy="0 0 0"/>
+      <mass value="0.00263007"/>
+      <inertia ixx="1.52173e-06" ixy="1.44976e-07" ixz="-4.293e-09" iyy="1.52173e-06" iyz="-4.29116e-09" izz="5.9826e-07"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="r_shoulder_in_low_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_shoulder_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_shoulder_fixed" type="fixed">
+    <origin xyz="0 -0.055 -0.0143" rpy="-3.14159265359 0 -0.78539803522"/>
+    <parent link="r_shoulder_ftsens"/>
+    <child link="r_shoulder_in_low"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="r_humerous">
+    <inertial>
+      <origin xyz="0.0123455 -0.148145 -0.017689" rpy="0 0 0"/>
+      <mass value="0.0320778"/>
+      <inertia ixx="0.000293525" ixy="2.02429e-05" ixz="-6.42827e-06" iyy="3.20518e-05" iyz="1.70984e-06" izz="0.000304706"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_humerous_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_humerous_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_shoulder_roll" type="revolute">
+    <origin xyz="-0.0388908679803 -0.0388908779502 -0.074" rpy="1.57079632679 0 0.785398291575"/>
+    <axis xyz="1.0 0.0 0.0"/>
+    <parent link="r_shoulder_in_low"/>
+    <child link="r_humerous"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="r_forearm">
+    <inertial>
+      <origin xyz="-0.0135034 -0.1450814 0.080615" rpy="0 0 0"/>
+      <mass value="0.00613751"/>
+      <inertia ixx="0.000111157" ixy="-3.11283e-06" ixz="1.11372e-07" iyy="2.18322e-06" iyz="1.71897e-06" izz="0.000110384"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.082621" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_forearm_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.082621" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/r_forearm_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="r_elbow_pitch" type="continuous">
+    <origin xyz="0.055 -0.3 -0.082621" rpy="0 0 0"/>
+    <axis xyz="0.0 0.0 -1.0"/>
+    <parent link="r_humerous"/>
+    <child link="r_forearm"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_shoulder_lateral">
+    <inertial>
+      <origin xyz="0.0400974 0.058849 0.0294444" rpy="0 0 0"/>
+      <mass value="0.0241779"/>
+      <inertia ixx="0.00011666" ixy="-8.61211e-06" ixz="5.63375e-06" iyy="0.000102116" iyz="2.04937e-05" izz="4.70351e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.0991175" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_lateral_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0991175" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_lateral_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_shoulder_pitch" type="revolute">
+    <origin xyz="0 0.5 -0.0931175" rpy="0 0 0"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <parent link="trunk"/>
+    <child link="l_shoulder_lateral"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_shoulder_in_up">
+    <inertial>
+      <origin xyz="-0.0164054409061 -0.0164054451118 -0.14311" rpy="0 0 0"/>
+      <mass value="0.00533858"/>
+      <inertia ixx="3.56358e-06" ixy="-1.6399e-06" ixz="-2.90551e-07" iyy="3.56357e-06" iyz="-2.90544e-07" izz="4.83593e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.141027" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="l_shoulder_in_up_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.141027" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_in_upper_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_shoulder_yaw" type="revolute">
+    <origin xyz="0 -0.069027 -0.0168825" rpy="1.57079632679 0.785398291575 0"/>
+    <axis xyz="5.55111512313e-17 -8.32667268469e-17 -1.0"/>
+    <parent link="l_shoulder_lateral"/>
+    <child link="l_shoulder_in_up"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_shoulder_ftsens">
+    <inertial>
+      <origin xyz="2.18171824966e-06 5.32211434063e-05 0.001822" rpy="0 0 0"/>
+      <mass value="0.112707"/>
+      <inertia ixx="1.85914e-05" ixy="-4.08392e-09" ixz="-1.81089e-09" iyy="1.86776e-05" iyz="-2.45183e-08" izz="3.20162e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/ftsensor45a_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_shoulder_ft" type="fixed">
+    <origin xyz="-0.0388908679803 -0.0388908779502 -0.126727" rpy="0 0 0.261799407783"/>
+    <parent link="l_shoulder_in_up"/>
+    <child link="l_shoulder_ftsens"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_shoulder_in_low">
+    <inertial>
+      <origin xyz="-0.0388216422353 -0.0388216521875 0.061047" rpy="0 0 0"/>
+      <mass value="0.00263007"/>
+      <inertia ixx="1.52173e-06" ixy="1.44976e-07" ixz="4.293e-09" iyy="1.52173e-06" iyz="4.29116e-09" izz="5.9826e-07"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="l_shoulder_in_low_color">
+        <color rgba="1.0 1.0 0.960784 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_shoulder_in_lower_part_prt.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_shoulder_fixed" type="fixed">
+    <origin xyz="0.0476313942328 0.0275000051534 -0.0143" rpy="0 0 -0.261799407783"/>
+    <parent link="l_shoulder_ftsens"/>
+    <child link="l_shoulder_in_low"/>
+    <dynamics damping="0.1"/>
+  </joint>
+  <link name="l_humerous">
+    <inertial>
+      <origin xyz="0.0125929 -0.14822 0.0175614" rpy="0 0 0"/>
+      <mass value="0.0324319"/>
+      <inertia ixx="0.000293621" ixy="2.02973e-05" ixz="6.52102e-06" iyy="3.23056e-05" iyz="-1.7379e-06" izz="0.000304934"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_humerous_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="pink"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_humerous_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_shoulder_roll" type="revolute">
+    <origin xyz="-0.0388908679803 -0.0388908779502 0.074" rpy="-1.57079632679 0 0.785398291575"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <parent link="l_shoulder_in_low"/>
+    <child link="l_humerous"/>
+    <limit effort="50000" lower="-1.57079632679" upper="1.57079632679" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <link name="l_forearm">
+    <inertial>
+      <origin xyz="-0.0135034 -0.1450814 0.002006" rpy="0 0 0"/>
+      <mass value="0.00613751"/>
+      <inertia ixx="0.000111157" ixy="-3.11283e-06" ixz="-1.11372e-07" iyy="2.18322e-06" iyz="-1.71897e-06" izz="0.000110384"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_forearm_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="cyan"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://athletebot/athlete_robot_cy_simple3/l_forearm_asm.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="l_elbow_pitch" type="revolute">
+    <origin xyz="0.055 -0.3 0" rpy="0 0 0"/>
+    <axis xyz="0.0 0.0 -1.0"/>
+    <parent link="l_humerous"/>
+    <child link="l_forearm"/>
+    <limit effort="50000" lower="-2.61799387799" upper="2.61799387799" velocity="50000"/>
+    <dynamics damping="0.223"/>
+  </joint>
+  <gazebo reference="l_hip_ft">
+    <sensor name="l_hip_ft" type="force_torque">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <force_torque>
+        <frame>child</frame>
+        <measure_direction>child_to_parent</measure_direction>
+      </force_torque>
+    </sensor>
+  </gazebo>
+  <gazebo reference="l_foot_ft">
+    <sensor name="l_foot_ft" type="force_torque">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <force_torque>
+        <frame>child</frame>
+        <measure_direction>child_to_parent</measure_direction>
+      </force_torque>
+    </sensor>
+  </gazebo>
+  <gazebo reference="r_hip_ft">
+    <sensor name="r_hip_ft" type="force_torque">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <force_torque>
+        <frame>child</frame>
+        <measure_direction>child_to_parent</measure_direction>
+      </force_torque>
+    </sensor>
+  </gazebo>
+  <gazebo reference="r_foot_ft">
+    <sensor name="r_foot_ft" type="force_torque">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <force_torque>
+        <frame>child</frame>
+        <measure_direction>child_to_parent</measure_direction>
+      </force_torque>
+    </sensor>
+  </gazebo>
+  <gazebo reference="trunk">
+    <sensor name="imu_frame" type="imu">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <pose>-0.048 0.32 0.05 -1.57079632679 0.0 0.0</pose>
+    </sensor>
+  </gazebo>
+  <gazebo>
+<plugin name="controlboard_right_arm" filename="libgazebo_yarp_controlboard.so">
+  <yarpConfigurationFile>model://athletebot/conf/athletebot_right_arm.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>    
+</plugin>
+<plugin name="controlboard_right_leg" filename="libgazebo_yarp_controlboard.so">
+  <yarpConfigurationFile>model://athletebot/conf/athletebot_right_leg.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>        
+</plugin>
+<plugin name="controlboard_left_arm" filename="libgazebo_yarp_controlboard.so">
+  <yarpConfigurationFile>model://athletebot/conf/athletebot_left_arm.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>            
+</plugin>
+<plugin name="controlboard_left_leg" filename="libgazebo_yarp_controlboard.so">
+  <yarpConfigurationFile>model://athletebot/conf/athletebot_left_leg.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>            
+</plugin>
+<plugin name="ftsensor_right_leg" filename="libgazebo_yarp_forcetorque.so">
+  <yarpConfigurationFile>model://athletebot/conf/FT/athletebot_right_leg_ft.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>    
+</plugin>
+<plugin name="ftsensor_right_foot" filename="libgazebo_yarp_forcetorque.so">
+  <yarpConfigurationFile>model://athletebot/conf/FT/athletebot_right_foot_ft.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>    
+</plugin>
+<plugin name="ftsensor_left_leg" filename="libgazebo_yarp_forcetorque.so">
+  <yarpConfigurationFile>model://athletebot/conf/FT/athletebot_left_leg_ft.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>    
+</plugin>
+<plugin name="ftsensor_left_foot" filename="libgazebo_yarp_forcetorque.so">
+  <yarpConfigurationFile>model://athletebot/conf/FT/athletebot_left_foot_ft.ini</yarpConfigurationFile>
+  <initialConfiguration>0 0 0 0</initialConfiguration>    
+</plugin>
+</gazebo>
+</robot>
