@@ -91,7 +91,7 @@ bool Module::configure (yarp::os::ResourceFinder &rf)
     }
     referencePositions(index) += 1.5;
     
-    if (!m_robot->getJointList().idToIndex("l_elbow", index)) {
+    if (!m_robot->getJointList().idToIndex("l_elbow_pitch", index)) {
         std::cout << "Could not retrieve index of l_elbow.\n";
         return false;
     }
@@ -103,7 +103,7 @@ bool Module::configure (yarp::os::ResourceFinder &rf)
     }
     referencePositions(index) += 1.5;
     
-    if (!m_robot->getJointList().idToIndex("r_elbow", index)) {
+    if (!m_robot->getJointList().idToIndex("r_elbow_pitch", index)) {
         std::cout << "Could not retrieve index of r_elbow.\n";
         return false;
     }
